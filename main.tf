@@ -64,13 +64,15 @@ resource "azurerm_route_table" "SSGatewayRT" {
   name                = "example-routetable"
   location            = azurerm_resource_group.SharedServicesRG.location
   resource_group_name = azurerm_resource_group.SharedServicesRG.name
+}
 
-  route {
-    name                   = var.GatewayRT_name
-    address_prefix         = var.GatewayRT_prefix
-    next_hop_type          = var.GatewayRT_nexthoptype
-    next_hop_in_ip_address = var.GatewayRT_nexthopIP
-  }
+resource "azurerm_route" "SSGatewayRoute" {
+  name                = var.GatewayRT_name
+  resource_group_name = azurerm_resource_group.SharedServicesRG.name
+  route_table_name    = azurerm_route_table.SSGatewayRT.name
+  address_prefix      = var.GatewayRT_prefix
+  next_hop_type       = var.GatewayRT_nexthoptype
+  next_hop_in_ip_address = var.GatewayRT_nexthopIP
 }
 
 resource "azurerm_subnet_route_table_association" "SSGatewayRT_association" {
