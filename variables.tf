@@ -12,7 +12,15 @@
 # var.GatewayRT_prefix = "0.0.0.0/0"
 # var.GatewayRT_nexthoptype = "VirtualAppliance"
 # var.GatewayRT_nexthopIP = "10.48.1.4"
+/*****
+Common Variables: Azure provider - Autoloaded from Terragrunt.
+*****/
 
+variable "region" {
+  description = "The Azure region (e.g. australia east). Autoloaded from region.tfvars."
+  type        = string
+  default     = ""
+}
 /*****
 VNET Module Variables - https://github.com/mashbynz/tf-mod-azure-vnet
 @Matt Ashby To Fill In
