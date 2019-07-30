@@ -61,13 +61,13 @@ resource "azurerm_subnet" "firewall" {
 
 # Route Table
 
-resource "azurerm_route_table" "gateway" {
+resource "azurerm_route_table" "default" {
   name                = module.rt_label.id
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
 }
 
-resource "azurerm_route" "SSGatewayRoute" {
+resource "azurerm_route" "default" {
   name                   = module.route_label.id
   resource_group_name    = azurerm_resource_group.default.name
   route_table_name       = azurerm_route_table.gateway.name
@@ -76,7 +76,7 @@ resource "azurerm_route" "SSGatewayRoute" {
   next_hop_in_ip_address = var.gateway_rt_nexthop_ip
 }
 
-resource "azurerm_subnet_route_table_association" "SSGatewayRT_association" {
+resource "azurerm_subnet_route_table_association" "default" {
   subnet_id      = azurerm_subnet.gateway.id
   route_table_id = azurerm_route_table.gateway.id
 }
