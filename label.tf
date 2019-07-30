@@ -3,6 +3,7 @@ module "rg_label" {
   context            = var.context
   attributes         = ["rg"]
   delimiter          = "-"
+  tags               = { "random" = "face" }
   additional_tag_map = {} /* Additional attributes (e.g. 1) */
 }
 
