@@ -12,6 +12,7 @@
 # var.GatewayRT_prefix = "0.0.0.0/0"
 # var.GatewayRT_nexthoptype = "VirtualAppliance"
 # var.GatewayRT_nexthopIP = "10.48.1.4"
+
 /*****
 Common Variables: Azure provider - Autoloaded from Terragrunt.
 *****/
