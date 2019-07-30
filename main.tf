@@ -47,7 +47,8 @@ resource "azurerm_subnet" "gateway" {
 }
 
 resource "azurerm_subnet" "firewall" {
-  name                 = module.firewall_subnet_label.id
+  # name                 = module.firewall_subnet_label.id
+  name                 = "AzureFirewallSubnet"
   resource_group_name  = azurerm_resource_group.default.name
   virtual_network_name = azurerm_virtual_network.default.name
   address_prefix       = var.firewall_subnet_prefix
@@ -86,12 +87,12 @@ resource "azurerm_public_ip" "FirewallPIP" {
 }
 
 resource "azurerm_firewall" "default" {
-  name                = "AzureFirewallSubnet"
+  name                = module.firewall_label.id
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
 
   ip_configuration {
-    name                 = "configuration"
+    name                 = module.ipconfig_label.id
     subnet_id            = azurerm_subnet.firewall.id
     public_ip_address_id = azurerm_public_ip.FirewallPIP.id
   }
