@@ -16,7 +16,7 @@ resource "azurerm_virtual_network" "default" {
   address_space       = var.vnet_addressspace
 
   ddos_protection_plan {
-    id     = azurerm_ddos_protection_plan.default.id
+    id     = azurerm_network_ddos_protection_plan.default.id
     enable = true
   }
 }
@@ -31,7 +31,7 @@ resource "azurerm_network_security_group" "default" {
 
 # DDoS
 
-resource "azurerm_ddos_protection_plan" "default" {
+resource "azurerm_network_ddos_protection_plan" "default" {
   name                = module.ddos_label.id
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
@@ -86,7 +86,7 @@ resource "azurerm_public_ip" "FirewallPIP" {
 }
 
 resource "azurerm_firewall" "default" {
-  name                = "testfirewall"
+  name                = module.firewall_subnet_label.id
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
 
