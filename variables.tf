@@ -116,6 +116,12 @@ variable "name" {
   description = "Solution name, e.g. 'app' or 'jenkins'"
 }
 
+variable "class" {
+  type        = string
+  default     = ""
+  description = "the type of resource e.g. 'sharedservices' or 'app1'"
+}
+
 variable "delimiter" {
   type        = string
   default     = "-"
@@ -146,6 +152,7 @@ variable "context" {
     environment         = string
     stage               = string
     name                = string
+    class               = string
     enabled             = bool
     delimiter           = string
     attributes          = list(string)
@@ -159,6 +166,7 @@ variable "context" {
     environment         = ""
     stage               = ""
     name                = ""
+    class               = ""
     enabled             = true
     delimiter           = ""
     attributes          = []
