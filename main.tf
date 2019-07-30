@@ -1,53 +1,54 @@
 # Resource Group
 
-resource "azurerm_resource_group" "SharedServicesRG" {
-  name     = var.ssrg_name
-  location = var.primarylocation
+resource "azurerm_resource_group" "default" {
+  name     = module.rg_label.id
+  location = var.region
 }
 
 # VNet
 
 resource "azurerm_virtual_network" "SharedServicesVNet" {
-  name                = var.ssvnet_name
-  location            = azurerm_resource_group.SharedServicesRG.location
-  resource_group_name = azurerm_resource_group.SharedServicesRG.name
-  address_space       = var.ssvnet_addressspace
-  
+  name                = module.vnet_label.id
+  location            = azurerm_resource_group.default.location
+  resource_group_name = azurerm_resource_group.default.name
+  address_space       = var.vnet_addressspace
+
   ddos_protection_plan {
-    id     = azurerm_ddos_protection_plan.SharedServicesDDoS.id
+    id     = azurerm_ddos_protection_plan.default.id
     enable = true
   }
+}
 
 # NSG
 
-resource "azurerm_network_security_group" "gatewayNSG" {
-  name                = var.gatewaynsg_name
-  location            = azurerm_resource_group.SharedServicesRG.location
-  resource_group_name = azurerm_resource_group.SharedServicesRG.name
+resource "azurerm_network_security_group" "default" {
+  name                = module.nsg_label.id
+  location            = azurerm_resource_group.default.location
+  resource_group_name = azurerm_resource_group.default.name
 }
 
 # DDoS
 
-resource "azurerm_ddos_protection_plan" "SharedServicesDDoS" {
-  name                = var.ssvnetddos_name
-  location            = azurerm_resource_group.SharedServicesRG.location
-  resource_group_name = azurerm_resource_group.SharedServicesRG.name
+resource "azurerm_ddos_protection_plan" "default" {
+  name                = module.ddos_label.id
+  location            = azurerm_resource_group.default.location
+  resource_group_name = azurerm_resource_group.default.name
 }
 
 # Subnets
 
-resource "azurerm_subnet" "SSGatewaySubnet" {
-  name                 = var.gatewaysubnet_name
-  resource_group_name  = azurerm_resource_group.SharedServicesRG.name
-  virtual_network_name = azurerm_virtual_network.SharedServicesVNet.name
-  address_prefix       = var.gatewaysubnet_prefix
+resource "azurerm_subnet" "gateway" {
+  name                 = module.gateway_subnet_label.id
+  resource_group_name  = azurerm_resource_group.default.name
+  virtual_network_name = azurerm_virtual_network.default.name
+  address_prefix       = var.gateway_subnet_prefix
 }
 
-resource "azurerm_subnet" "SSFirewallSubnet" {
-  name                 = var.firewallsubnet_name
-  resource_group_name  = azurerm_resource_group.SharedServicesRG.name
-  virtual_network_name = azurerm_virtual_network.SharedServicesVNet.name
-  address_prefix       = var.firewallsubnet_prefix
+resource "azurerm_subnet" "firewall" {
+  name                 = module.firewall_subnet_label.id
+  resource_group_name  = azurerm_resource_group.default.name
+  virtual_network_name = azurerm_virtual_network.default.name
+  address_prefix       = var.firewall_subnet_prefix
 }
 
 # VPN Gateway
@@ -60,23 +61,23 @@ resource "azurerm_subnet" "SSFirewallSubnet" {
 
 # Route Table
 
-resource "azurerm_route_table" "SSGatewayRT" {
-  name                = "example-routetable"
-  location            = azurerm_resource_group.SharedServicesRG.location
-  resource_group_name = azurerm_resource_group.SharedServicesRG.name
+resource "azurerm_route_table" "gateway" {
+  name                = module.rt_label.id
+  location            = azurerm_resource_group.default.location
+  resource_group_name = azurerm_resource_group.default.name
 }
 
 resource "azurerm_route" "SSGatewayRoute" {
-  name                = var.GatewayRT_name
-  resource_group_name = azurerm_resource_group.SharedServicesRG.name
-  route_table_name    = azurerm_route_table.SSGatewayRT.name
-  address_prefix      = var.GatewayRT_prefix
-  next_hop_type       = var.GatewayRT_nexthoptype
-  next_hop_in_ip_address = var.GatewayRT_nexthopIP
+  name                   = module.route_label.id
+  resource_group_name    = azurerm_resource_group.default.name
+  route_table_name       = azurerm_route_table.gateway.name
+  address_prefix         = var.gateway_rt_prefix
+  next_hop_type          = var.gateway_rt_nexthop_type
+  next_hop_in_ip_address = var.gateway_rt_nexthop_ip
 }
 
 resource "azurerm_subnet_route_table_association" "SSGatewayRT_association" {
-  subnet_id      = azurerm_subnet.SSGatewaySubnet.id
-  route_table_id = azurerm_route_table.SSGatewayRT.id
+  subnet_id      = azurerm_subnet.gateway.id
+  route_table_id = azurerm_route_table.gateway.id
 }
 

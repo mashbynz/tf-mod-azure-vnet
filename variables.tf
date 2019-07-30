@@ -13,75 +13,79 @@
 # var.GatewayRT_nexthoptype = "VirtualAppliance"
 # var.GatewayRT_nexthopIP = "10.48.1.4"
 
-variable "ssrg_name" {
+/*****
+VNET Module Variables - https://github.com/mashbynz/tf-mod-azure-vnet
+@Matt Ashby To Fill In
+*****/
+
+variable "vnet_name" {
   type        = string
-  description = "Name of the Resource Group that holds resources for Shared Services"
-  default     = "prodsharedservices-rg"
+  description = ""
+  default     = ""
 }
 
-variable "primarylocation" {
+variable "vnet_addressspace" {
+  type        = list(string)
+  description = ""
+  default     = []
+}
+
+variable "vnet_ddos_name" {
   type        = string
-  description = "description"
-  default     = "australiaeast"
+  description = ""
+  default     = ""
 }
 
-variable "ssvnet_name" {
+variable "gateway_nsg_name" {
   type        = string
-  description = "description"
-  default     = "prodsharedservces-vnet"
+  description = ""
+  default     = ""
+}
+variable "gateway_subnet_name" {
+  type        = string
+  description = ""
+  default     = ""
 }
 
-variable "ssvnet_addressspace" {
-  description = "description"
-  default     = ["10.48.0.0/16"]
+variable "gateway_subnet_prefix" {
+  type        = string
+  description = ""
+  default     = ""
 }
 
-variable "ssvnetddos_name" {
-  description = "description"
-  default     = "prodsharedservices-ddos"
+variable "firewall_subnet_name" {
+  type        = string
+  description = ""
+  default     = ""
 }
 
-variable "gatewaynsg_name" {
-  description = "description"
-  default     = "prodsharedservicesgw-nsg"
+variable "firewall_subnet_prefix" {
+  type        = string
+  description = ""
+  default     = ""
 }
 
-variable "gatewaysubnet_name" {
-  description = "description"
-  default     = "GatewaySubnet"
+variable "gateway_rt_name" {
+  type        = string
+  description = ""
+  default     = ""
 }
 
-variable "gatewaysubnet_prefix" {
-  description = "description"
-  default     = "10.48.0.0/27"
+variable "gateway_rt_prefix" {
+  type        = string
+  description = ""
+  default     = ""
 }
 
-variable "firewallsubnet_name" {
-  description = "description"
-  default     = "AzureFirewallSubnet"
+variable "gateway_rt_nexthop_type" {
+  type        = string
+  description = ""
+  default     = ""
 }
 
-variable "firewallsubnet_prefix" {
-  description = "description"
-  default     = "10.48.1.0/24"
+variable "gateway_rt_nexthop_ip" {
+  type        = string
+  description = ""
+  default     = ""
 }
 
-variable "GatewayRT_name" {
-  description = "description"
-  default     = "prodsharedservicesgw-rt"
-}
-
-variable "GatewayRT_prefix" {
-  description = "description"
-  default     = "0.0.0.0/0"
-}
-
-variable "GatewayRT_nexthoptype" {
-  description = "description"
-  default     = "VirtualAppliance"
-}
-
-variable "GatewayRT_nexthopIP" {
-  description = "description"
-  default     = "10.48.1.4"
-}
