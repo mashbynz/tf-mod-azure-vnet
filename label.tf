@@ -32,7 +32,8 @@ module "ddos_label" {
 module "gateway_subnet_label" {
   source             = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.14.1"
   context            = var.context
-  attributes         = ["gateway", "subnet"]
+  attributes         = ["GatewaySubnet"]
+  label_order        = ["attributes"]
   delimiter          = "-"
   additional_tag_map = {} /* Additional attributes (e.g. 1) */
 }
@@ -40,7 +41,8 @@ module "gateway_subnet_label" {
 module "firewall_subnet_label" {
   source             = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.14.1"
   context            = var.context
-  attributes         = ["firewall", "subnet"]
+  attributes         = ["AzureFirewallSubnet"]
+  label_order        = ["attributes"]
   delimiter          = "-"
   additional_tag_map = {} /* Additional attributes (e.g. 1) */
 }
