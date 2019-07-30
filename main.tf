@@ -7,7 +7,7 @@ resource "azurerm_resource_group" "default" {
 
 # VNet
 
-resource "azurerm_virtual_network" "SharedServicesVNet" {
+resource "azurerm_virtual_network" "default" {
   name                = module.vnet_label.id
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
@@ -80,4 +80,3 @@ resource "azurerm_subnet_route_table_association" "SSGatewayRT_association" {
   subnet_id      = azurerm_subnet.gateway.id
   route_table_id = azurerm_route_table.gateway.id
 }
-
