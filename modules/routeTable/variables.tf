@@ -22,3 +22,8 @@ variable "route_name" {
   description = "description"
   type        = string
 }
+
+variable "ssrg_name" {
+  description = "description"
+  type        = string
+}

@@ -17,7 +17,7 @@ resource "azurerm_virtual_network" "SharedServicesVNet" {
     id     = azurerm_ddos_protection_plan.SharedServicesDDoS.id
     enable = true
   }
-
+/*
 # NSG
 
 resource "azurerm_network_security_group" "gatewayNSG" {
@@ -25,7 +25,7 @@ resource "azurerm_network_security_group" "gatewayNSG" {
   location            = azurerm_resource_group.SharedServicesRG.location
   resource_group_name = azurerm_resource_group.SharedServicesRG.name
 }
-
+*/
 # DDoS
 
 resource "azurerm_ddos_protection_plan" "SharedServicesDDoS" {

@@ -37,12 +37,12 @@ variable "ssvnetddos_name" {
   description = "description"
   type = string
 }
-
+/*
 variable "gatewaynsg_name" {
   description = "description"
   type = string
 }
-
+*/
 variable "gatewaysubnet_name" {
   description = "description"
   type = string
