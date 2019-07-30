@@ -61,7 +61,7 @@ resource "azurerm_subnet" "SSFirewallSubnet" {
 # Route Table
 
 resource "azurerm_route_table" "SSGatewayRT" {
-  name                = "example-routetable"
+  name                = var.GatewayRT_name
   location            = azurerm_resource_group.SharedServicesRG.location
   resource_group_name = azurerm_resource_group.SharedServicesRG.name
 }

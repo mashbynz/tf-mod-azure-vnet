@@ -17,3 +17,8 @@ variable "GatewayRT_nexthopIP" {
   description = "description"
   type        = string
 }
+
+variable "route_name" {
+  description = "description"
+  type        = string
+}

@@ -1,11 +1,11 @@
 resource "azurerm_route_table" "SSGatewayRT" {
-  name                = "example-routetable"
+  name                = var.GatewayRT_name
   location            = var.primarylocation
   resource_group_name = var.ssrg_name
 }
 
 resource "azurerm_route" "SSGatewayRoute" {
-  name                   = var.GatewayRT_name
+  name                   = var.route_name
   resource_group_name    = azurerm_resource_group.SharedServicesRG.name
   route_table_name       = azurerm_route_table.SSGatewayRT.name
   address_prefix         = var.GatewayRT_prefix
