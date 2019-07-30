@@ -1,30 +1,14 @@
-# var.ssrg_name = "prodsharedservices-rg"
-# var.primarylocation = "australiaeast"
-# var.ssvnet_name = "prodsharedservces-vnet"
-# var.ssvnet_addressspace = ["10.48.0.0/16"]
-# var.ssvnetddos_name = "prodsharedservices-ddos"
-# var.gatewaynsg_name = "prodsharedservicesgw-nsg"
-# var.gatewaysubnet_name = "GatewaySubnet"
-# var.gatewaysubnet_prefix = "10.48.0.0/27"
-# var.firewallsubnet_name = "AzureFirewallSubnet"
-# var.firewallsubnet_prefix = "10.48.1.0/24"
-# var.GatewayRT_name = "prodsharedservicesgw-rt"
-# var.GatewayRT_prefix = "0.0.0.0/0"
-# var.GatewayRT_nexthoptype = "VirtualAppliance"
-# var.GatewayRT_nexthopIP = "10.48.1.4"
-
 /*****
 Common Variables: Azure provider - Autoloaded from Terragrunt.
 *****/
 
 variable "region" {
-  description = "The Azure region (e.g. australia east). Autoloaded from region.tfvars."
+  description = "The Azure region (e.g. 'australiaeast'). Autoloaded from region.tfvars."
   type        = string
   default     = ""
 }
 /*****
 VNET Module Variables - https://github.com/mashbynz/tf-mod-azure-vnet
-@Matt Ashby To Fill In
 *****/
 
 variable "vnet_name" {
@@ -93,6 +77,18 @@ variable "gateway_rt_nexthop_type" {
 }
 
 variable "gateway_rt_nexthop_ip" {
+  type        = string
+  description = ""
+  default     = ""
+}
+
+variable "firewall_allocation_method" {
+  type        = string
+  description = ""
+  default     = ""
+}
+
+variable "firewall_sku" {
   type        = string
   description = ""
   default     = ""

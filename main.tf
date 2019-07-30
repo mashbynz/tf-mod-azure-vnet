@@ -53,14 +53,6 @@ resource "azurerm_subnet" "firewall" {
   address_prefix       = var.firewall_subnet_prefix
 }
 
-# VPN Gateway
-
-
-
-# ExpressRoute Gateway
-
-
-
 # Route Table
 
 resource "azurerm_route_table" "default" {
@@ -82,3 +74,34 @@ resource "azurerm_subnet_route_table_association" "default" {
   subnet_id      = azurerm_subnet.gateway.id
   route_table_id = azurerm_route_table.default.id
 }
+
+# Azure Firewall
+
+resource "azurerm_public_ip" "FirewallPIP" {
+  name                = module.firewall_label.id
+  location            = azurerm_resource_group.default.location
+  resource_group_name = azurerm_resource_group.default.name
+  allocation_method   = var.firewall_allocation_method
+  sku                 = var.firewall_sku
+}
+
+resource "azurerm_firewall" "default" {
+  name                = "testfirewall"
+  location            = azurerm_resource_group.default.location
+  resource_group_name = azurerm_resource_group.default.name
+
+  ip_configuration {
+    name                 = "configuration"
+    subnet_id            = azurerm_subnet.firewall.id
+    public_ip_address_id = azurerm_public_ip.FirewallPIP.id
+  }
+}
+
+# VPN Gateway
+
+
+
+# ExpressRoute Gateway
+
+
+

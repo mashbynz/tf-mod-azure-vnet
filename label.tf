@@ -63,3 +63,11 @@ module "route_label" {
   delimiter          = "-"
   additional_tag_map = {} /* Additional attributes (e.g. 1) */
 }
+
+module "firewall_label" {
+  source             = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.14.1"
+  context            = var.context
+  attributes         = ["fw"]
+  delimiter          = "-"
+  additional_tag_map = {} /* Additional attributes (e.g. 1) */
+}
