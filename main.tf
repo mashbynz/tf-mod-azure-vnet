@@ -86,7 +86,7 @@ resource "azurerm_public_ip" "FirewallPIP" {
 }
 
 resource "azurerm_firewall" "default" {
-  name                = module.firewall_subnet_label.id
+  name                = "AzureFirewallSubnet"
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
 
