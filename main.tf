@@ -17,6 +17,20 @@ resource "azurerm_virtual_network" "SharedServicesVNet" {
     id     = azurerm_ddos_protection_plan.SharedServicesDDoS.id
     enable = true
   }
+
+resource "azurerm_subnet_route_table_association" "SSGatewayRT_association" {
+  subnet_id      = azurerm_subnet.SSGatewaySubnet.id
+  route_table_id = module.routeTable.gateway_routetable_id
+}
+
+# DDoS
+
+resource "azurerm_ddos_protection_plan" "SharedServicesDDoS" {
+  name                = var.ssvnetddos_name
+  location            = azurerm_resource_group.SharedServicesRG.location
+  resource_group_name = azurerm_resource_group.SharedServicesRG.name
+}
+
 /*
 # NSG
 
@@ -26,14 +40,7 @@ resource "azurerm_network_security_group" "gatewayNSG" {
   resource_group_name = azurerm_resource_group.SharedServicesRG.name
 }
 */
-# DDoS
-
-resource "azurerm_ddos_protection_plan" "SharedServicesDDoS" {
-  name                = var.ssvnetddos_name
-  location            = azurerm_resource_group.SharedServicesRG.location
-  resource_group_name = azurerm_resource_group.SharedServicesRG.name
-}
-
+/*
 # Subnets
 
 resource "azurerm_subnet" "SSGatewaySubnet" {
@@ -49,7 +56,7 @@ resource "azurerm_subnet" "SSFirewallSubnet" {
   virtual_network_name = azurerm_virtual_network.SharedServicesVNet.name
   address_prefix       = var.firewallsubnet_prefix
 }
-
+*/
 # VPN Gateway
 
 
@@ -75,8 +82,3 @@ resource "azurerm_route" "SSGatewayRoute" {
   next_hop_in_ip_address = var.GatewayRT_nexthopIP
 }
 */
-resource "azurerm_subnet_route_table_association" "SSGatewayRT_association" {
-  subnet_id      = azurerm_subnet.SSGatewaySubnet.id
-  route_table_id = module.routeTable.gateway_routetable_id
-}
-
