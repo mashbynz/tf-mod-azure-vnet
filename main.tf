@@ -3,6 +3,8 @@
 resource "azurerm_resource_group" "default" {
   name     = module.rg_label.id
   location = var.region
+
+  tags = module.rg_label.tags
 }
 
 # VNet
