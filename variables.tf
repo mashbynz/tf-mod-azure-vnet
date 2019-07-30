@@ -16,72 +16,70 @@
 variable "ssrg_name" {
   type        = string
   description = "Name of the Resource Group that holds resources for Shared Services"
-  default     = "prodsharedservices-rg"
 }
 
 variable "primarylocation" {
   type        = string
   description = "description"
-  default     = "australiaeast"
 }
 
 variable "ssvnet_name" {
   type        = string
   description = "description"
-  default     = "prodsharedservces-vnet"
 }
 
 variable "ssvnet_addressspace" {
   description = "description"
-  default     = ["10.48.0.0/16"]
+  type = string
 }
 
 variable "ssvnetddos_name" {
   description = "description"
-  default     = "prodsharedservices-ddos"
+  type = string
 }
 
 variable "gatewaynsg_name" {
   description = "description"
-  default     = "prodsharedservicesgw-nsg"
+  type = string
 }
 
 variable "gatewaysubnet_name" {
   description = "description"
-  default     = "GatewaySubnet"
+  type = string
 }
 
 variable "gatewaysubnet_prefix" {
   description = "description"
-  default     = "10.48.0.0/27"
+  type = string
 }
 
 variable "firewallsubnet_name" {
   description = "description"
-  default     = "AzureFirewallSubnet"
+  type = string
 }
 
 variable "firewallsubnet_prefix" {
   description = "description"
-  default     = "10.48.1.0/24"
+  type = string
 }
-
+/*
 variable "GatewayRT_name" {
   description = "description"
-  default     = "prodsharedservicesgw-rt"
+  type = string
 }
 
 variable "GatewayRT_prefix" {
   description = "description"
-  default     = "0.0.0.0/0"
+  type = string
 }
 
 variable "GatewayRT_nexthoptype" {
   description = "description"
-  default     = "VirtualAppliance"
+  type = string
 }
 
 variable "GatewayRT_nexthopIP" {
   description = "description"
-  default     = "10.48.1.4"
+  type = string
 }
+*/

@@ -57,7 +57,7 @@ resource "azurerm_subnet" "SSFirewallSubnet" {
 # ExpressRoute Gateway
 
 
-
+/*
 # Route Table
 
 resource "azurerm_route_table" "SSGatewayRT" {
@@ -74,9 +74,9 @@ resource "azurerm_route" "SSGatewayRoute" {
   next_hop_type       = var.GatewayRT_nexthoptype
   next_hop_in_ip_address = var.GatewayRT_nexthopIP
 }
-
+*/
 resource "azurerm_subnet_route_table_association" "SSGatewayRT_association" {
   subnet_id      = azurerm_subnet.SSGatewaySubnet.id
-  route_table_id = azurerm_route_table.SSGatewayRT.id
+  route_table_id = module.routeTable.gateway_routetable_id
 }
 
