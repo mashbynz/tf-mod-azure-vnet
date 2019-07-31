@@ -15,10 +15,10 @@ resource "azurerm_virtual_network" "default" {
   resource_group_name = azurerm_resource_group.default.name
   address_space       = var.vnet_addressspace
 
-  ddos_protection_plan {
-    id     = azurerm_network_ddos_protection_plan.default.id
-    enable = true
-  }
+  # ddos_protection_plan {
+  #   id     = azurerm_network_ddos_protection_plan.default.id
+  #   enable = true
+  # }
 }
 
 # NSG
@@ -47,7 +47,6 @@ resource "azurerm_subnet" "gateway" {
 }
 
 resource "azurerm_subnet" "firewall" {
-  # name                 = module.firewall_subnet_label.id
   name                 = "AzureFirewallSubnet"
   resource_group_name  = azurerm_resource_group.default.name
   virtual_network_name = azurerm_virtual_network.default.name
