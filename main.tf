@@ -100,7 +100,7 @@ resource "azurerm_firewall" "default" {
 
 # VPN Gateway
 
-resource "azurerm_public_ip" "default" {
+resource "azurerm_public_ip" "GatewayPIP" {
   name                = module.vgw_pip_label.id
   location            = var.region
   resource_group_name = azurerm_resource_group.default.name
@@ -111,7 +111,7 @@ resource "azurerm_public_ip" "default" {
 resource "azurerm_virtual_network_gateway" "default" {
   name                = module.vgw_label.id
   location            = var.region
-  resource_group_name = azurerm_public_ip.default.resource_group_name
+  resource_group_name = azurerm_public_ip.GatewayPIP.resource_group_name
 
   type     = var.vpngw_type
   vpn_type = var.vpngw_vpn_type
@@ -122,7 +122,7 @@ resource "azurerm_virtual_network_gateway" "default" {
 
   ip_configuration {
     name                          = module.ipconfig_label.id
-    public_ip_address_id          = azurerm_public_ip.default.id
+    public_ip_address_id          = azurerm_public_ip.GatewayPIP.id
     private_ip_address_allocation = var.vpngw_private_alloc
     subnet_id                     = azurerm_subnet.gateway.id
   }
