@@ -152,7 +152,6 @@ variable "context" {
     environment         = string
     stage               = string
     name                = string
-    class               = string
     enabled             = bool
     delimiter           = string
     attributes          = list(string)
@@ -166,7 +165,6 @@ variable "context" {
     environment         = ""
     stage               = ""
     name                = ""
-    class               = ""
     enabled             = true
     delimiter           = ""
     attributes          = []
