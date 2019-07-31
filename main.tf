@@ -123,7 +123,7 @@ resource "azurerm_virtual_network_gateway" "default" {
     name                          = module.ipconfig_label.id
     public_ip_address_id          = azurerm_public_ip.default.id
     private_ip_address_allocation = var.vpngw_private_alloc
-    subnet_id                     = module.vnet.gateway_subnet_id
+    subnet_id                     = azurerm_subnet.gateway.id
   }
 
   vpn_client_configuration {
