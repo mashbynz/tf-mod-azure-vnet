@@ -104,6 +104,7 @@ resource "azurerm_public_ip" "default" {
   name                = module.vgw_pip_label.id
   location            = var.region
   resource_group_name = azurerm_resource_group.default.name
+  
   allocation_method   = var.vpngw_allocation_method
 }
 
