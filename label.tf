@@ -76,7 +76,7 @@ module "firewall_label" {
 module "fw_pip_label" {
   source             = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.14.1"
   context            = var.context
-  attributes         = ["pip"]
+  attributes         = ["fwpip"]
   delimiter          = "-"
   additional_tag_map = {} /* Additional attributes (e.g. 1) */
 }
@@ -92,7 +92,7 @@ module "ipconfig_label" {
 module "vgw_pip_label" {
   source             = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.14.1"
   context            = var.context
-  attributes         = ["pip"]
+  attributes         = ["gwpip"]
   delimiter          = "-"
   tags               = { "random" = "face" }
   additional_tag_map = {} /* Additional attributes (e.g. 1) */
