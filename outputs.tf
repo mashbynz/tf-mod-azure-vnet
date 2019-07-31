@@ -1,6 +1,10 @@
-# output "ssrg_name" {
-#   value = azurerm_resource_group.default.name
-# }
+output "ss_rg_name" {
+  value = azurerm_resource_group.default.name
+}
+
+output "ss_rg_location" {
+  value = azurerm_resource_group.default.location
+}
 
 # output "ssvnet_name" {
 #   value = azurerm_virtual_network.default.name

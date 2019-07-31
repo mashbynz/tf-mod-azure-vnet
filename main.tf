@@ -97,12 +97,3 @@ resource "azurerm_firewall" "default" {
     public_ip_address_id = azurerm_public_ip.FirewallPIP.id
   }
 }
-
-# VPN Gateway
-
-
-
-# ExpressRoute Gateway
-
-
-
