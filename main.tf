@@ -79,7 +79,7 @@ resource "azurerm_subnet_route_table_association" "default" {
 # Azure Firewall
 
 resource "azurerm_public_ip" "FirewallPIP" {
-  name                = module.firewall_label.id
+  name                = module.fw_pip_label.id
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
   allocation_method   = var.firewall_allocation_method
