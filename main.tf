@@ -105,7 +105,7 @@ resource "azurerm_public_ip" "GatewayPIP" {
   location            = var.region
   resource_group_name = azurerm_resource_group.default.name
 
-  allocation_method   = "Dynamic" #var.vpngw_allocation_method
+  allocation_method   = var.vpngw_allocation_method
 }
 
 resource "azurerm_virtual_network_gateway" "default" {
