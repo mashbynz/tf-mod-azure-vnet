@@ -6,9 +6,9 @@ output "ss_rg_location" {
   value = azurerm_resource_group.default.location
 }
 
-# output "ssvnet_name" {
-#   value = azurerm_virtual_network.default.name
-# }
+output "gateway_subnet_id" {
+  value = azurerm_subnet.gateway.id
+}
 
 # output "ssvnet_addressspace" {
 #   value = azurerm_virtual_network.default.address_space
