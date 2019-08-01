@@ -7,6 +7,7 @@ variable "region" {
   type        = string
   default     = ""
 }
+
 /*****
 VNET Module Variables - https://github.com/mashbynz/tf-mod-azure-vnet
 *****/
@@ -146,7 +147,7 @@ variable "environment" {
   description = "Environment, e.g. 'prod', 'staging', 'dev', 'pre-prod', 'UAT'"
 }
 
-variable "name" {
+variable "sharedservices_name" {
   type        = string
   default     = ""
   description = "Solution name, e.g. 'app' or 'jenkins'"
