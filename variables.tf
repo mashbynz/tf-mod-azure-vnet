@@ -193,7 +193,7 @@ variable "context" {
     namespace           = string
     environment         = string
     stage               = string
-    sharedservices_name = string
+    name                = string
     enabled             = bool
     delimiter           = string
     attributes          = list(string)
@@ -206,7 +206,7 @@ variable "context" {
     namespace           = ""
     environment         = ""
     stage               = ""
-    sharedservices_name = ""
+    name                = var.sharedservices_name
     enabled             = true
     delimiter           = ""
     attributes          = []
