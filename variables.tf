@@ -152,12 +152,6 @@ variable "name" {
   description = "Solution name, e.g. 'app' or 'jenkins'"
 }
 
-variable "sharedservices_name" {
-  type        = string
-  default     = ""
-  description = "Name for 'Shared Services' Resources"
-}
-
 variable "class" {
   type        = string
   default     = ""
