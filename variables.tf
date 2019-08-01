@@ -206,7 +206,7 @@ variable "context" {
     namespace           = ""
     environment         = ""
     stage               = ""
-    name                = var.sharedservices_name
+    name                = ""
     enabled             = true
     delimiter           = ""
     attributes          = []
