@@ -152,6 +152,12 @@ variable "name" {
   description = "Solution name, e.g. 'app' or 'jenkins'"
 }
 
+variable "sharedservices_name" {
+  type        = string
+  default     = ""
+  description = "Name for 'Shared Services' Resources"
+}
+
 variable "class" {
   type        = string
   default     = ""
@@ -187,7 +193,7 @@ variable "context" {
     namespace           = string
     environment         = string
     stage               = string
-    name                = string
+    sharedservices_name = string
     enabled             = bool
     delimiter           = string
     attributes          = list(string)
@@ -200,7 +206,7 @@ variable "context" {
     namespace           = ""
     environment         = ""
     stage               = ""
-    name                = ""
+    sharedservices_name = ""
     enabled             = true
     delimiter           = ""
     attributes          = []
