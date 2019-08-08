@@ -113,6 +113,12 @@ variable "vpngw_sku" {
   default     = ""
 }
 
+variable "vpngw_ip_sku" {
+  type        = string
+  description = ""
+  default     = ""
+}
+
 variable "vpngw_private_alloc" {
   type        = string
   description = ""
