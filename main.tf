@@ -13,6 +13,7 @@ resource "azurerm_virtual_network" "default" {
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
   address_space       = var.vnet_addressspace
+  tags                = module.vnet_label.tags
 
   # ddos_protection_plan {
   #   id     = azurerm_network_ddos_protection_plan.default.id
@@ -26,6 +27,7 @@ resource "azurerm_network_security_group" "default" {
   name                = module.nsg_label.id
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
+  tags                = module.nsg_label.tags
 }
 
 # DDoS
@@ -34,6 +36,7 @@ resource "azurerm_network_security_group" "default" {
 #   name                = module.ddos_label.id
 #   location            = azurerm_resource_group.default.location
 #   resource_group_name = azurerm_resource_group.default.name
+#   tags                = module.ddos_label.tags
 # }
 
 # Subnets
@@ -58,6 +61,7 @@ resource "azurerm_route_table" "default" {
   name                = module.rt_label.id
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
+  tags                = module.rt_label.tags
 }
 
 resource "azurerm_route" "default" {
@@ -82,12 +86,14 @@ resource "azurerm_public_ip" "FirewallPIP" {
   resource_group_name = azurerm_resource_group.default.name
   allocation_method   = var.firewall_allocation_method
   sku                 = var.firewall_sku
+  tags                = module.fw_pip_label.tags
 }
 
 resource "azurerm_firewall" "default" {
   name                = module.firewall_label.id
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
+  tags                = module.firewall_label.tags
 
   ip_configuration {
     name                 = module.ipconfig_label.id
@@ -104,12 +110,14 @@ resource "azurerm_public_ip" "GatewayPIP" {
   resource_group_name = azurerm_resource_group.default.name
   allocation_method   = var.vpngw_allocation_method
   sku                 = var.vpngw_ip_sku
+  tags                = module.vgw_pip_label.tags
 }
 
 resource "azurerm_virtual_network_gateway" "default" {
   name                = module.vgw_label.id
   location            = var.region
   resource_group_name = azurerm_public_ip.GatewayPIP.resource_group_name
+  tags                = module.vgw_label.tags
 
   type     = var.vpngw_type
   vpn_type = var.vpngw_vpn_type
