@@ -116,7 +116,7 @@ resource "azurerm_virtual_network_gateway" "default" {
 
   active_active = false
   enable_bgp    = false
-  sku           = var.vpngw_ip_sku
+  sku           = var.vpngw_sku
 
   ip_configuration {
     name                          = module.ipconfig_label.id
