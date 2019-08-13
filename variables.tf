@@ -12,6 +12,18 @@ variable "region" {
 VNET Module Variables - https://github.com/mashbynz/tf-mod-azure-vnet
 *****/
 
+variable "rg_name" {
+  type        = string
+  description = ""
+  default     = ""
+}
+
+variable "rg_location" {
+  type        = string
+  description = ""
+  default     = ""
+}
+
 variable "vnet_addressspace" {
   type        = list(string)
   description = ""
