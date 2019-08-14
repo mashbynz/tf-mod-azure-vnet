@@ -144,9 +144,9 @@ variable "vpngw_client_address" {
 }
 
 variable "vpn_client_protocols" {
-  type        = string
+  type        = list(string)
   description = ""
-  default     = ""
+  default     = []
 }
 
 /*****
