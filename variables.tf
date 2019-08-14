@@ -143,7 +143,7 @@ variable "vpngw_client_address" {
   default     = []
 }
 
-variable "vpn_client_protocol" {
+variable "vpn_client_protocols" {
   type        = string
   description = ""
   default     = ""

@@ -134,7 +134,7 @@ resource "azurerm_virtual_network_gateway" "default" {
   }
 
   vpn_client_configuration {
-    address_space       = var.vpngw_client_address
-    vpn_client_protocol = var.vpn_client_protocol
+    address_space        = var.vpngw_client_address
+    vpn_client_protocols = var.vpn_client_protocols
   }
 }
