@@ -143,6 +143,12 @@ variable "vpngw_client_address" {
   default     = []
 }
 
+variable "vpn_client_protocol" {
+  type        = string
+  description = ""
+  default     = ""
+}
+
 /*****
 Label Module Variables
 *****/
