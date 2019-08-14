@@ -13,3 +13,7 @@ output "rg_location" {
 output "vnet_id" {
   value = azurerm_virtual_network.default.id
 }
+
+output "gateway_subnet_id" {
+  value = azurerm_virtual_network.default.gateway_subnet_id
+}
