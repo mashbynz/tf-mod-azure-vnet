@@ -15,5 +15,5 @@ output "vnet_id" {
 }
 
 output "gateway_subnet_id" {
-  value = azurerm_virtual_network.default.gateway_subnet_id
+  value = azurerm_subnet.gateway.id
 }
