@@ -24,129 +24,53 @@ variable "rg_location" {
   default     = ""
 }
 
-variable "vnet_addressspace" {
-  type        = list(string)
-  description = ""
-  default     = []
-}
+variable "vpc_config" {
+  type = object({
+    location = map(string)
+    enabled  = bool
+    address_space = object({
+      ae  = list(string)
+      ase = list(string)
+    })
+    gateway_prefix             = map(string)
+    firewall_prefix            = map(string)
+    firewall_allocation_method = string
+    firewall_sku               = string
+    vpngw_allocation_method    = string
+    vpngw_type                 = string
+    vpngw_sku                  = string
+    vpngw_ip_sku               = string
+    vpngw_private_allocation   = string
+    client_address             = map(string)
+    vpn_client_protocol        = list(string)
+    # gateway_rt_prefix          = string
+    # gateway_rt_nexthop_type    = string
+    # gateway_rt_nexthop_ip = map(string)
+  })
 
-variable "vnet_ddos_name" {
-  type        = string
-  description = ""
-  default     = ""
-}
-
-variable "gateway_nsg_name" {
-  type        = string
-  description = ""
-  default     = ""
-}
-variable "gateway_subnet_name" {
-  type        = string
-  description = ""
-  default     = ""
-}
-
-variable "gateway_subnet_prefix" {
-  type        = string
-  description = ""
-  default     = ""
-}
-
-variable "firewall_subnet_name" {
-  type        = string
-  description = ""
-  default     = ""
-}
-
-variable "firewall_subnet_prefix" {
-  type        = string
-  description = ""
-  default     = ""
-}
-
-variable "gateway_rt_name" {
-  type        = string
-  description = ""
-  default     = ""
-}
-
-variable "gateway_rt_prefix" {
-  type        = string
-  description = ""
-  default     = ""
-}
-
-variable "gateway_rt_nexthop_type" {
-  type        = string
-  description = ""
-  default     = ""
-}
-
-variable "gateway_rt_nexthop_ip" {
-  type        = string
-  description = ""
-  default     = ""
-}
-
-variable "firewall_allocation_method" {
-  type        = string
-  description = ""
-  default     = ""
-}
-
-variable "firewall_sku" {
-  type        = string
-  description = ""
-  default     = ""
-}
-
-variable "vpngw_allocation_method" {
-  type        = string
-  description = ""
-  default     = ""
-}
-
-variable "vpngw_type" {
-  type        = string
-  description = ""
-  default     = ""
-}
-
-variable "vpngw_vpn_type" {
-  type        = string
-  description = ""
-  default     = ""
-}
-
-variable "vpngw_sku" {
-  type        = string
-  description = ""
-  default     = ""
-}
-
-variable "vpngw_ip_sku" {
-  type        = string
-  description = ""
-  default     = ""
-}
-
-variable "vpngw_private_alloc" {
-  type        = string
-  description = ""
-  default     = ""
-}
-
-variable "vpngw_client_address" {
-  type        = list(string)
-  description = ""
-  default     = []
-}
-
-variable "vpn_client_protocols" {
-  type        = list(string)
-  description = ""
-  default     = []
+  default = {
+    location = {}
+    enabled  = true
+    address_space = {
+      ae  = []
+      ase = []
+    }
+    gateway_prefix             = {}
+    firewall_prefix            = {}
+    firewall_allocation_method = null
+    firewall_sku               = null
+    vpngw_allocation_method    = null
+    vpngw_type                 = null
+    vpngw_sku                  = null
+    vpngw_ip_sku               = null
+    vpngw_private_allocation   = null
+    client_address             = {}
+    vpn_client_protocol        = []
+    gateway_rt_prefix          = null
+    gateway_rt_nexthop_type    = null
+    gateway_rt_nexthop_ip      = {}
+  }
+  description = "Default VNET configuration"
 }
 
 /*****

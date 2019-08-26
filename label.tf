@@ -1,8 +1,9 @@
 module "rg_label" {
-  source             = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.14.1"
-  context            = var.context
-  attributes         = ["rg"]
-  delimiter          = "-"
+  source      = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.14.1"
+  context     = var.context
+  label_order = ["name"]
+  attributes  = ["rg"]
+  delimiter   = "-"
   # tags               = { "random" = "face" }
   additional_tag_map = {} /* Additional attributes (e.g. 1) */
 }
@@ -10,6 +11,7 @@ module "rg_label" {
 module "vnet_label" {
   source             = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.14.1"
   context            = var.context
+  label_order        = ["name"]
   attributes         = ["vnet"]
   delimiter          = "-"
   additional_tag_map = {} /* Additional attributes (e.g. 1) */
@@ -18,6 +20,7 @@ module "vnet_label" {
 module "nsg_label" {
   source             = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.14.1"
   context            = var.context
+  label_order        = ["name"]
   attributes         = ["nsg"]
   delimiter          = "-"
   additional_tag_map = {} /* Additional attributes (e.g. 1) */
@@ -26,6 +29,7 @@ module "nsg_label" {
 module "ddos_label" {
   source             = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.14.1"
   context            = var.context
+  label_order        = ["name"]
   attributes         = ["ddos"]
   delimiter          = "-"
   additional_tag_map = {} /* Additional attributes (e.g. 1) */
@@ -52,6 +56,7 @@ module "firewall_subnet_label" {
 module "rt_label" {
   source             = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.14.1"
   context            = var.context
+  label_order        = ["name"]
   attributes         = ["rt"]
   delimiter          = "-"
   additional_tag_map = {} /* Additional attributes (e.g. 1) */
@@ -68,6 +73,7 @@ module "route_label" {
 module "firewall_label" {
   source             = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.14.1"
   context            = var.context
+  label_order        = ["name"]
   attributes         = ["fw"]
   delimiter          = "-"
   additional_tag_map = {} /* Additional attributes (e.g. 1) */
@@ -76,6 +82,7 @@ module "firewall_label" {
 module "fw_pip_label" {
   source             = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.14.1"
   context            = var.context
+  label_order        = ["name"]
   attributes         = ["fwpip"]
   delimiter          = "-"
   additional_tag_map = {} /* Additional attributes (e.g. 1) */
