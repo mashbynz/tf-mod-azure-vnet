@@ -14,7 +14,7 @@ resource "azurerm_virtual_network" "default" {
   name                = "${module.vnet_label.id}${var.delimiter}${element(keys(var.vpc_config.location), count.index)}${var.delimiter}${module.vnet_label.attributes}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
-  address_space       = element(value(var.vpc_config.address_space), count.index)
+  address_space       = element(values(var.vpc_config.address_space), count.index)
   tags                = module.vnet_label.tags
 
   # ddos_protection_plan {
@@ -94,7 +94,7 @@ resource "azurerm_public_ip" "FirewallPIP" {
   name                = "${module.fw_pip_label.id}${var.delimiter}${element(keys(var.vpc_config.location), count.index)}${var.delimiter}${module.fw_pip_label.attributes}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
-  allocation_method   = var.vpc_config.allocation_method
+  allocation_method   = var.vpc_config.firewall_allocation_method
   sku                 = var.vpc_config.firewall_sku
   tags                = module.fw_pip_label.tags
 }
