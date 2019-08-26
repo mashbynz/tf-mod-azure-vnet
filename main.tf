@@ -113,17 +113,17 @@ resource "azurerm_firewall" "default" {
   }
 }
 
-# # VPN Gateway
+# VPN Gateway
 
-# resource "azurerm_public_ip" "GatewayPIP" {
-#   count               = var.enabled == true ? length(keys(var.vpc_config.location)) : 0
-#   name                = module.vgw_pip_label.id
-#   location            = var.region
-#   resource_group_name = azurerm_resource_group.default.name
-#   allocation_method   = var.vpngw_allocation_method
-#   sku                 = var.vpngw_ip_sku
-#   tags                = module.vgw_pip_label.tags
-# }
+resource "azurerm_public_ip" "GatewayPIP" {
+  count               = var.enabled == true ? length(keys(var.vpc_config.location)) : 0
+  name                = module.vgw_pip_label.id
+  location            = var.region
+  resource_group_name = azurerm_resource_group.default.name
+  allocation_method   = var.vpngw_allocation_method
+  sku                 = var.vpngw_ip_sku
+  tags                = module.vgw_pip_label.tags
+}
 
 # resource "azurerm_virtual_network_gateway" "default" {
 #   count               = var.enabled == true ? length(keys(var.vpc_config.location)) : 0
