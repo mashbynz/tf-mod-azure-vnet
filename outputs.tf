@@ -1,19 +1,19 @@
 output "rg_name" {
-  value = azurerm_resource_group.default.name
+  value = list(azurerm_resource_group.default.*.name)
 }
 
 output "rg_id" {
-  value = azurerm_resource_group.default.id
+  value = list(azurerm_resource_group.default.*.id)
 }
 
 output "rg_location" {
-  value = azurerm_resource_group.default.location
+  value = list(azurerm_resource_group.default.*.location)
 }
 
 output "vnet_id" {
-  value = azurerm_virtual_network.default.id
+  value = list(azurerm_virtual_network.default.*.id)
 }
 
 output "gateway_subnet_id" {
-  value = azurerm_subnet.gateway.id
+  value = list(azurerm_subnet.gateway.*.id)
 }
