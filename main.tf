@@ -2,8 +2,8 @@
 
 resource "azurerm_resource_group" "default" {
   count    = var.enabled == true ? length(keys(var.vpc_config.location)) : 0
-  name     = "${module.rg_label.id}${var.delimiter}${element(keys(var.vpc_config.location), count.index)}${var.delimiter}${module.vnet_label.attributes}"
-  location = element(values(var.vpc_config), count.index)
+  name     = "${module.rg_label.id}${var.delimiter}${element(keys(var.vpc_config.location), count.index)}${var.delimiter}${element(module.vnet_label.attributes, 0)}"
+  location = element(values(var.vpc_config.location), count.index)
   tags     = module.rg_label.tags
 }
 
@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "default" {
 
 resource "azurerm_virtual_network" "default" {
   count               = var.enabled == true ? length(keys(var.vpc_config.location)) : 0
-  name                = "${module.vnet_label.id}${var.delimiter}${element(keys(var.vpc_config.location), count.index)}${var.delimiter}${module.vnet_label.attributes}"
+  name                = "${module.vnet_label.id}${var.delimiter}${element(keys(var.vpc_config.location), count.index)}${var.delimiter}${element(module.vnet_label.attributes, 0)}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
   address_space       = element(values(var.vpc_config.address_space), count.index)
@@ -27,7 +27,7 @@ resource "azurerm_virtual_network" "default" {
 
 resource "azurerm_network_security_group" "default" {
   count               = var.enabled == true ? length(keys(var.vpc_config.location)) : 0
-  name                = "${module.nsg_label.id}${var.delimiter}${element(keys(var.vpc_config.location), count.index)}${var.delimiter}${module.nsg_label.attributes}"
+  name                = "${module.nsg_label.id}${var.delimiter}${element(keys(var.vpc_config.location), count.index)}${var.delimiter}${element(module.nsg_label.attributes, 0)}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
   tags                = module.nsg_label.tags
@@ -64,7 +64,7 @@ resource "azurerm_subnet" "firewall" {
 
 resource "azurerm_route_table" "default" {
   count               = var.enabled == true ? length(keys(var.vpc_config.location)) : 0
-  name                = "${module.rt_label.id}${var.delimiter}${element(keys(var.vpc_config.location), count.index)}${var.delimiter}${module.rt_label.attributes}"
+  name                = "${module.rt_label.id}${var.delimiter}${element(keys(var.vpc_config.location), count.index)}${var.delimiter}${element(module.rt_label.attributes, 0)}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
   tags                = module.rt_label.tags
@@ -91,7 +91,7 @@ resource "azurerm_subnet_route_table_association" "default" {
 
 resource "azurerm_public_ip" "FirewallPIP" {
   count               = var.enabled == true ? length(keys(var.vpc_config.location)) : 0
-  name                = "${module.fw_pip_label.id}${var.delimiter}${element(keys(var.vpc_config.location), count.index)}${var.delimiter}${module.fw_pip_label.attributes}"
+  name                = "${module.fw_pip_label.id}${var.delimiter}${element(keys(var.vpc_config.location), count.index)}${var.delimiter}${element(module.fw_pip_label.attributes, 0)}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
   allocation_method   = var.vpc_config.firewall_allocation_method
@@ -101,7 +101,7 @@ resource "azurerm_public_ip" "FirewallPIP" {
 
 resource "azurerm_firewall" "default" {
   count               = var.enabled == true ? length(keys(var.vpc_config.location)) : 0
-  name                = "${module.firewall_label.id}${var.delimiter}${element(keys(var.vpc_config.location), count.index)}${var.delimiter}${module.firewall_label.attributes}"
+  name                = "${module.firewall_label.id}${var.delimiter}${element(keys(var.vpc_config.location), count.index)}${var.delimiter}${element(module.firewall_label.attributes, 0)}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
   tags                = module.firewall_label.tags
