@@ -83,8 +83,8 @@ resource "azurerm_route" "default" {
 
 resource "azurerm_subnet_route_table_association" "default" {
   count          = var.enabled == true ? length(keys(var.vpc_config.location)) : 0
-  subnet_id      = azurerm_subnet.gateway.id
-  route_table_id = azurerm_route_table.default.id
+  subnet_id      = azurerm_subnet.gateway.*.id[count.index]
+  route_table_id = azurerm_route_table.default.*.id[count.index]
 }
 
 # Azure Firewall
