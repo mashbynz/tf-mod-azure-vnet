@@ -57,7 +57,7 @@ resource "azurerm_subnet" "firewall" {
   name                 = "AzureFirewallSubnet"
   resource_group_name  = azurerm_resource_group.default.*.name[count.index]
   virtual_network_name = azurerm_virtual_network.default.*.name[count.index]
-  address_prefix       = element(values(var.vpc_config.gateway_prefix), count.index)
+  address_prefix       = element(values(var.vpc_config.firewall_prefix), count.index)
 }
 
 # Route Table
