@@ -8,6 +8,12 @@ variable "region" {
   default     = ""
 }
 
+variable "enabled" {
+  type        = bool
+  description = "switch if this resource is to be created or not"
+  default     = true
+}
+
 /*****
 VNET Module Variables - https://github.com/mashbynz/tf-mod-azure-vnet
 *****/
