@@ -99,6 +99,7 @@ module "ipconfig_label" {
 module "vgw_pip_label" {
   source             = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.14.1"
   context            = var.context
+  label_order        = ["name"]
   attributes         = ["gwpip"]
   delimiter          = "-"
   tags               = { "random" = "face" }
@@ -108,6 +109,7 @@ module "vgw_pip_label" {
 module "vgw_label" {
   source             = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.14.1"
   context            = var.context
+  label_order        = ["name"]
   attributes         = ["gw"]
   delimiter          = "-"
   additional_tag_map = {} /* Additional attributes (e.g. 1) */

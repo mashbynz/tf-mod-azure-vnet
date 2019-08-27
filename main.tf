@@ -2,7 +2,7 @@
 
 resource "azurerm_resource_group" "default" {
   count    = var.enabled == true ? length(keys(var.vpc_config.location)) : 0
-  name     = "${module.rg_label.id}${module.rg_label.delimiter}${element(keys(var.vpc_config.location), count.index)}${module.rg_label.delimiter}${element(module.vnet_label.attributes, 0)}"
+  name     = "${module.rg_label.id}${module.rg_label.delimiter}${element(keys(var.vpc_config.location), count.index)}${module.rg_label.delimiter}${element(module.rg_label.attributes, 0)}"
   location = element(values(var.vpc_config.location), count.index)
   tags     = module.rg_label.tags
 }
