@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "default" {
 
 resource "azurerm_virtual_network" "default" {
   count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
-  name                = "${module.vnet_label.id}${module.vnet_label.delimiter}${element(keys(var.vnet_config.location), count.index)}${module.vnet_label.delimiter}${element(module.vnet_label.attributes, 0)}"
+  name                = "${element(keys(var.vnet_config.location), count.index)}${var.sharedservices_name}${module.vnet_label.delimiter}${element(module.vnet_label.attributes, 0)}${length(keys(var.vnet_config.location))}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
   address_space       = element(values(var.vnet_config.address_space), count.index)
@@ -27,7 +27,7 @@ resource "azurerm_virtual_network" "default" {
 
 resource "azurerm_network_security_group" "default" {
   count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
-  name                = "${module.nsg_label.id}${module.nsg_label.delimiter}${element(keys(var.vnet_config.location), count.index)}${module.nsg_label.delimiter}${element(module.nsg_label.attributes, 0)}"
+  name                = "${element(keys(var.vnet_config.location), count.index)}${var.sharedservices_name}${module.nsg_label.delimiter}${element(module.nsg_label.attributes, 0)}${length(keys(var.vnet_config.location))}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
   tags                = module.nsg_label.tags
@@ -64,7 +64,7 @@ resource "azurerm_subnet" "firewall" {
 
 resource "azurerm_route_table" "default" {
   count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
-  name                = "${module.rt_label.id}${module.rt_label.delimiter}${element(keys(var.vnet_config.location), count.index)}${module.rt_label.delimiter}${element(module.rt_label.attributes, 0)}"
+  name                = "${element(keys(var.vnet_config.location), count.index)}${var.sharedservices_name}${module.rt_label.delimiter}${element(module.rt_label.attributes, 0)}${length(keys(var.vnet_config.location))}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
   tags                = module.rt_label.tags
@@ -91,7 +91,7 @@ resource "azurerm_subnet_route_table_association" "default" {
 
 resource "azurerm_public_ip" "FirewallPIP" {
   count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
-  name                = "${module.fw_pip_label.id}${module.fw_pip_label.delimiter}${element(keys(var.vnet_config.location), count.index)}${module.fw_pip_label.delimiter}${element(module.fw_pip_label.attributes, 0)}"
+  name                = "${element(keys(var.vnet_config.location), count.index)}${var.sharedservices_name}${module.fw_pip_label.delimiter}${element(module.fw_pip_label.attributes, 0)}${length(keys(var.vnet_config.location))}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
   allocation_method   = var.vnet_config.firewall_allocation_method
@@ -101,8 +101,7 @@ resource "azurerm_public_ip" "FirewallPIP" {
 
 resource "azurerm_firewall" "default" {
   count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
-  # name                = "${module.firewall_label.id}${module.firewall_label.delimiter}${element(keys(var.vnet_config.location), count.index)}${module.firewall_label.delimiter}${element(module.firewall_label.attributes, 0)}"
-  name                = "${element(keys(var.vnet_config.location), count.index)}${module.firewall_label.delimiter}${element(module.firewall_label.attributes, 0)}"
+  name                = "${element(keys(var.vnet_config.location), count.index)}${var.sharedservices_name}${module.firewall_label.delimiter}${element(module.firewall_label.attributes, 0)}${length(keys(var.vnet_config.location))}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
   tags                = module.firewall_label.tags
