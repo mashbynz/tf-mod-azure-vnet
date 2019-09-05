@@ -8,7 +8,7 @@ variable "region" {
   default     = ""
 }
 
-variable "enabled" {
+variable "vnet_enabled" {
   type        = bool
   description = "switch if this resource is to be created or not"
   default     = true
