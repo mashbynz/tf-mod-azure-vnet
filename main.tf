@@ -101,7 +101,8 @@ resource "azurerm_public_ip" "FirewallPIP" {
 
 resource "azurerm_firewall" "default" {
   count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
-  name                = "${module.firewall_label.id}${module.firewall_label.delimiter}${element(keys(var.vnet_config.location), count.index)}${module.firewall_label.delimiter}${element(module.firewall_label.attributes, 0)}"
+  # name                = "${module.firewall_label.id}${module.firewall_label.delimiter}${element(keys(var.vnet_config.location), count.index)}${module.firewall_label.delimiter}${element(module.firewall_label.attributes, 0)}"
+  name                = "${element(keys(var.vnet_config.location), count.index)}${module.firewall_label.delimiter}${element(module.firewall_label.attributes, 0)}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
   tags                = module.firewall_label.tags
