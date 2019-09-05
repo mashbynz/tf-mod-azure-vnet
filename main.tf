@@ -2,7 +2,7 @@
 
 resource "azurerm_resource_group" "default" {
   count    = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
-  name     = "${element(keys(var.vnet_config.location), count.index)}${var.sharedservices_name}${module.rg_label.delimiter}${element(module.rg_label.attributes, 0)}${length(keys(var.vnet_config.location), 0)}"
+  name     = "${element(keys(var.vnet_config.location), count.index)}${var.sharedservices_name}${module.rg_label.delimiter}${element(module.rg_label.attributes, 0)}${length(keys(var.vnet_config.location))}"
   location = element(values(var.vnet_config.location), count.index)
   tags     = module.rg_label.tags
 }
