@@ -1,7 +1,7 @@
 # Resource Group
 
 resource "azurerm_resource_group" "default" {
-  count    = var.enabled == true ? length(keys(var.vnet_config.location)) : 0
+  count    = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
   name     = "${module.rg_label.id}${module.rg_label.delimiter}${element(keys(var.vnet_config.location), count.index)}${module.rg_label.delimiter}${element(module.rg_label.attributes, 0)}"
   location = element(values(var.vnet_config.location), count.index)
   tags     = module.rg_label.tags
@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "default" {
 # VNet
 
 resource "azurerm_virtual_network" "default" {
-  count               = var.enabled == true ? length(keys(var.vnet_config.location)) : 0
+  count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
   name                = "${module.vnet_label.id}${module.vnet_label.delimiter}${element(keys(var.vnet_config.location), count.index)}${module.vnet_label.delimiter}${element(module.vnet_label.attributes, 0)}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
@@ -26,7 +26,7 @@ resource "azurerm_virtual_network" "default" {
 # NSG
 
 resource "azurerm_network_security_group" "default" {
-  count               = var.enabled == true ? length(keys(var.vnet_config.location)) : 0
+  count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
   name                = "${module.nsg_label.id}${module.nsg_label.delimiter}${element(keys(var.vnet_config.location), count.index)}${module.nsg_label.delimiter}${element(module.nsg_label.attributes, 0)}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
@@ -45,7 +45,7 @@ resource "azurerm_network_security_group" "default" {
 # Subnets
 
 resource "azurerm_subnet" "gateway" {
-  count                = var.enabled == true ? length(keys(var.vnet_config.location)) : 0
+  count                = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
   name                 = module.gateway_subnet_label.id
   resource_group_name  = azurerm_resource_group.default.*.name[count.index]
   virtual_network_name = azurerm_virtual_network.default.*.name[count.index]
@@ -53,7 +53,7 @@ resource "azurerm_subnet" "gateway" {
 }
 
 resource "azurerm_subnet" "firewall" {
-  count                = var.enabled == true ? length(keys(var.vnet_config.location)) : 0
+  count                = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
   name                 = "AzureFirewallSubnet"
   resource_group_name  = azurerm_resource_group.default.*.name[count.index]
   virtual_network_name = azurerm_virtual_network.default.*.name[count.index]
@@ -63,7 +63,7 @@ resource "azurerm_subnet" "firewall" {
 # Route Table
 
 resource "azurerm_route_table" "default" {
-  count               = var.enabled == true ? length(keys(var.vnet_config.location)) : 0
+  count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
   name                = "${module.rt_label.id}${module.rt_label.delimiter}${element(keys(var.vnet_config.location), count.index)}${module.rt_label.delimiter}${element(module.rt_label.attributes, 0)}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
@@ -71,7 +71,7 @@ resource "azurerm_route_table" "default" {
 }
 
 resource "azurerm_route" "default" {
-  count                  = var.enabled == true ? length(keys(var.vnet_config.location)) : 0
+  count                  = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
   name                   = module.route_label.id
   resource_group_name    = azurerm_resource_group.default.*.name[count.index]
   route_table_name       = azurerm_route_table.default.*.name[count.index]
@@ -82,7 +82,7 @@ resource "azurerm_route" "default" {
 }
 
 resource "azurerm_subnet_route_table_association" "default" {
-  count          = var.enabled == true ? length(keys(var.vnet_config.location)) : 0
+  count          = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
   subnet_id      = azurerm_subnet.gateway.*.id[count.index]
   route_table_id = azurerm_route_table.default.*.id[count.index]
 }
@@ -90,7 +90,7 @@ resource "azurerm_subnet_route_table_association" "default" {
 # Azure Firewall
 
 resource "azurerm_public_ip" "FirewallPIP" {
-  count               = var.enabled == true ? length(keys(var.vnet_config.location)) : 0
+  count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
   name                = "${module.fw_pip_label.id}${module.fw_pip_label.delimiter}${element(keys(var.vnet_config.location), count.index)}${module.fw_pip_label.delimiter}${element(module.fw_pip_label.attributes, 0)}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
@@ -100,7 +100,7 @@ resource "azurerm_public_ip" "FirewallPIP" {
 }
 
 resource "azurerm_firewall" "default" {
-  count               = var.enabled == true ? length(keys(var.vnet_config.location)) : 0
+  count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
   name                = "${module.firewall_label.id}${module.firewall_label.delimiter}${element(keys(var.vnet_config.location), count.index)}${module.firewall_label.delimiter}${element(module.firewall_label.attributes, 0)}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
@@ -116,7 +116,7 @@ resource "azurerm_firewall" "default" {
 # VPN Gateway
 
 # resource "azurerm_public_ip" "GatewayPIP" {
-#   count               = var.enabled == true ? length(keys(var.vnet_config.location)) : 0
+#   count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
 #   name                = "${module.vgw_pip_label.id}${module.vgw_pip_label.delimiter}${element(keys(var.vnet_config.location), count.index)}${module.vgw_pip_label.delimiter}${element(module.vgw_pip_label.attributes, 0)}"
 #   location            = azurerm_resource_group.default.*.location[count.index]
 #   resource_group_name = azurerm_resource_group.default.*.name[count.index]
@@ -126,7 +126,7 @@ resource "azurerm_firewall" "default" {
 # }
 
 # resource "azurerm_virtual_network_gateway" "default" {
-#   count               = var.enabled == true ? length(keys(var.vnet_config.location)) : 0
+#   count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
 #   name                = module.vgw_label.id
 #   location            = var.region
 #   resource_group_name = azurerm_public_ip.GatewayPIP.resource_group_name
