@@ -2,7 +2,7 @@
 
 resource "azurerm_resource_group" "default" {
   count    = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
-  name     = "${element(keys(var.vnet_config.location), count.index)}${var.sharedservices_name}${module.rg_label.delimiter}${element(module.rg_label.attributes, 0)}${length(keys(var.vnet_config.location))}"
+  name     = "${element(keys(var.vnet_config.location), count.index)}${var.sharedservices_name}${length(keys(var.vnet_config.location))}${module.rg_label.delimiter}${element(module.rg_label.attributes, 0)}"
   location = element(values(var.vnet_config.location), count.index)
   tags     = module.rg_label.tags
 }
@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "default" {
 
 resource "azurerm_virtual_network" "default" {
   count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
-  name                = "${element(keys(var.vnet_config.location), count.index)}${var.sharedservices_name}${module.vnet_label.delimiter}${element(module.vnet_label.attributes, 0)}${length(keys(var.vnet_config.location))}"
+  name                = "${element(keys(var.vnet_config.location), count.index)}${var.sharedservices_name}${length(keys(var.vnet_config.location))}${module.vnet_label.delimiter}${element(module.vnet_label.attributes, 0)}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
   address_space       = element(values(var.vnet_config.address_space), count.index)
@@ -27,7 +27,7 @@ resource "azurerm_virtual_network" "default" {
 
 resource "azurerm_network_security_group" "default" {
   count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
-  name                = "${element(keys(var.vnet_config.location), count.index)}${var.sharedservices_name}${module.nsg_label.delimiter}${element(module.nsg_label.attributes, 0)}${length(keys(var.vnet_config.location))}"
+  name                = "${element(keys(var.vnet_config.location), count.index)}${var.sharedservices_name}${length(keys(var.vnet_config.location))}${module.nsg_label.delimiter}${element(module.nsg_label.attributes, 0)}"
   location            = azurerm_resource_group.default.*.location[count.index]
   resource_group_name = azurerm_resource_group.default.*.name[count.index]
   tags                = module.nsg_label.tags
