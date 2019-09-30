@@ -89,29 +89,29 @@ resource "azurerm_subnet_route_table_association" "default" {
 
 # Azure Firewall
 
-resource "azurerm_public_ip" "FirewallPIP" {
-  count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
-  name                = "${element(keys(var.vnet_config.location), count.index)}${var.sharedservices_name}${module.fw_pip_label.delimiter}${element(module.fw_pip_label.attributes, 0)}${length(keys(var.vnet_config.location))}"
-  location            = azurerm_resource_group.default.*.location[count.index]
-  resource_group_name = azurerm_resource_group.default.*.name[count.index]
-  allocation_method   = var.vnet_config.firewall_allocation_method
-  sku                 = var.vnet_config.firewall_sku
-  tags                = module.fw_pip_label.tags
-}
+# resource "azurerm_public_ip" "FirewallPIP" {
+#   count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
+#   name                = "${element(keys(var.vnet_config.location), count.index)}${var.sharedservices_name}${module.fw_pip_label.delimiter}${element(module.fw_pip_label.attributes, 0)}${length(keys(var.vnet_config.location))}"
+#   location            = azurerm_resource_group.default.*.location[count.index]
+#   resource_group_name = azurerm_resource_group.default.*.name[count.index]
+#   allocation_method   = var.vnet_config.firewall_allocation_method
+#   sku                 = var.vnet_config.firewall_sku
+#   tags                = module.fw_pip_label.tags
+# }
 
-resource "azurerm_firewall" "default" {
-  count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
-  name                = "${element(keys(var.vnet_config.location), count.index)}${var.sharedservices_name}${module.firewall_label.delimiter}${element(module.firewall_label.attributes, 0)}${length(keys(var.vnet_config.location))}"
-  location            = azurerm_resource_group.default.*.location[count.index]
-  resource_group_name = azurerm_resource_group.default.*.name[count.index]
-  tags                = module.firewall_label.tags
+# resource "azurerm_firewall" "default" {
+#   count               = var.vnet_enabled == true ? length(keys(var.vnet_config.location)) : 0
+#   name                = "${element(keys(var.vnet_config.location), count.index)}${var.sharedservices_name}${module.firewall_label.delimiter}${element(module.firewall_label.attributes, 0)}${length(keys(var.vnet_config.location))}"
+#   location            = azurerm_resource_group.default.*.location[count.index]
+#   resource_group_name = azurerm_resource_group.default.*.name[count.index]
+#   tags                = module.firewall_label.tags
 
-  ip_configuration {
-    name                 = module.ipconfig_label.id
-    subnet_id            = azurerm_subnet.firewall.*.id[count.index]
-    public_ip_address_id = azurerm_public_ip.FirewallPIP.*.id[count.index]
-  }
-}
+#   ip_configuration {
+#     name                 = module.ipconfig_label.id
+#     subnet_id            = azurerm_subnet.firewall.*.id[count.index]
+#     public_ip_address_id = azurerm_public_ip.FirewallPIP.*.id[count.index]
+#   }
+# }
 
 # VPN Gateway
 
